@@ -27,5 +27,5 @@ function e($str, $flags = ENT_QUOTES, $encoding = 'UTF-8'){
     return HTMLXSS::specialchars($str, $flags, $encoding);
 }
 
-echo '<a href="link.php">Not a working link</a>';
+echo e('<a href="link.php">Not a working link</a>');
 ```
