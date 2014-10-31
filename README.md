@@ -12,10 +12,16 @@ This package includes:
 <?php
 
 use packages\Tres\security\XSS\HTML as HTMLXSS;
+use packages\Tres\security\XSS\HTML as JSXSS;
 
 $string = '<b>Hello world!</b>';
 
-echo HTMLXSS::specialchars($string);
+echo HTMLXSS::escape($string);
+?>
+
+<script type="text/javascript">
+var htmlContents = <?php echo JSXSS::escape($string); ?>
+</script>
 ```
 
 ```php
@@ -24,7 +30,7 @@ echo HTMLXSS::specialchars($string);
 use packages\Tres\security\XSS\HTML as HTMLXSS;
 
 function e($str, $flags = ENT_QUOTES, $encoding = 'UTF-8'){
-    return HTMLXSS::specialchars($str, $flags, $encoding);
+    return HTMLXSS::escape($str, $flags, $encoding);
 }
 
 echo e('<a href="link.php">Not a working link</a>');
