@@ -1,6 +1,6 @@
 <?php
 
-namespace packages\Tres\security\XSS {
+namespace Tres\security\XSS {
     
     /**
      * HTML XSS class.
