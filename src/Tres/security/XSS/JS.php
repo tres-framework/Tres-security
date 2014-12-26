@@ -23,7 +23,7 @@ namespace Tres\security\XSS {
          * @return string           The converted string.
          */
         public static function escape($str, $flags = 0, $encoding = 'UTF-8'){
-            if(in_array(strtoupper($encoding), self::$_supportedEncoding){
+            if(in_array(strtoupper($encoding), self::$_supportedEncoding)){
                 return json_encode($str, $flags);
             } else {
                 throw new XSSException('Encoding not supported.');
