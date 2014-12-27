@@ -14,3 +14,7 @@ spl_autoload_register(function($class){
         }
     }
 });
+
+set_exception_handler(function($e){
+    echo '<b>Exception:</b> '.$e->getMessage();
+});
