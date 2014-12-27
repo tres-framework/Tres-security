@@ -7,9 +7,11 @@ This package contains:
 - XSS protection
     - HTML
     - JavaScript
+- CSRF protection
 
 ## Requirements
 - PHP 5.4 or greater.
+- openssl module for CSRF token generation
 
 ## Documentation
-**Coming soon.**
+*Coming soon.*
