@@ -1,0 +1,30 @@
+{
+    "name": "Tres security",
+    "version": "0.3",
+    "website": "http://tresframework.com",
+    "documentation": "",
+    "description_short": "A security package to protect your web applications.",
+    
+    "description_long": [
+        "This is the security package used for Tres Framework. This is a ",
+        "stand-alone package, which means that it can also be used without ",
+        "the framework.\n\n"
+    ],
+    
+    "dependencies": {
+        "php": ">= 5.4"
+    },
+    
+    "contributors": [{
+        "name": "Ped Zed",
+        "nickname": "pedzed",
+        "role": "creator, maintainer",
+        "email": "ped@tresframework.com",
+        "github": "https://github.com/pedzed/"
+    },{
+        "name": "Julian Richen",
+        "nickname": "FireDart",
+        "email": "julian@tresframework.com",
+        "github": "https://github.com/firedart/"
+    }]
+}

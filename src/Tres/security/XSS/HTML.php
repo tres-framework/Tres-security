@@ -1,6 +1,6 @@
 <?php
 
-namespace packages\Tres\security\XSS {
+namespace Tres\security\XSS {
     
     /**
      * HTML XSS class.
@@ -10,14 +10,14 @@ namespace packages\Tres\security\XSS {
     class HTML {
         
         /**
-         * Converts special characters to HTML entities.
+         * Escapes data to be safe for HTML output.
          * 
          * @param  string $str      The string being converted.
          * @param  int    $flags    (Optional) Specifies how to handle quotes.
          * @param  string $encoding (Optional) Defines encoding used in conversion.
          * @return string           The converted string.
          */
-        public static function specialchars($str, $flags = ENT_QUOTES, $encoding = 'UTF-8'){
+        public static function escape($str, $flags = ENT_QUOTES, $encoding = 'UTF-8'){
             return htmlspecialchars($str, $flags, $encoding);
         }
         
