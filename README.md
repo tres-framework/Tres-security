@@ -23,7 +23,7 @@ Next start the session for the current page, if you do not a CSRFException will 
 ```php
 session_start();
 ```
-Next create a basic php check for the form POST/GET and then use `Token::validate()`.
+Thirdly create a basic php check for the form POST/GET and then use `Token::validate()`.
 ```php
 if(isset($_POST['exmaple'])){
     if(Token::validate($_POST['csrf_token'])) {
@@ -75,4 +75,60 @@ if(isset($_POST['exmaple'])){
 ```
 
 ### XSS
-*Coming soon.*
+#### HTML
+To implement XSS protection include the appropriate XSS class, for HTML use XSS\HTML.
+```php
+use Tres\security\XSS\HTML as HTMLXSS;
+```
+Then use the `escape()` method & echo out the data.
+```php
+$insecureString = "<script>alert('Hello evil world!');</script>";
+$secureString   = HTMLXSS::escape($insecureStr);
+echo $secureString;
+```
+
+All together:
+
+```php
+use Tres\security\XSS\HTML as HTMLXSS;
+
+$insecureString = "<script>alert('Hello evil world!');</script>";
+$secureString   = HTMLXSS::escape($insecureStr);
+echo $secureString;
+```
+
+
+#### JS
+To use the JavaScript XSS class first include the XSS\JS:
+```php
+use Tres\security\XSS\JS as JSXSS;
+```
+Second create your insecure string which will be cleaned:
+```php
+$insecureString = "<script>alert('Hello evil world!');</script>";
+```
+Thirdly escape your insecure string using the `escape()` method.
+```php
+$secureString   = JSXSS::escape($insecureString);
+```
+Finally pass your php variable to JS:
+```js
+<script type="text/javascript">
+var securePHPVal = <?php echo $secureString; ?>;
+</script>
+```
+
+All together:
+
+```php
+<?php
+use Tres\security\XSS\JS as JSXSS;
+
+$insecureString = "<script>alert('Hello evil world!');</script>";
+$secureString   = JSXSS::escape($insecureString);
+?>
+
+<script type="text/javascript">
+var securePHPVal = <?php echo $secureString; ?>;
+</script>
+```
