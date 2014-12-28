@@ -6,16 +6,20 @@ require_once(dirname(__DIR__).'/init.php');
 
 session_start();
 
+if(isset($_SESSION['_CSRF_TOKEN'])){
+    echo 'Token session: '.$_SESSION['_CSRF_TOKEN'].'<br />';
+}
+
 if(isset($_POST['form_1_submit'])){
     echo 'Form 1 was submitted.<br />';
-    echo 'CSRF token was: '.Token::generate().'<br />';
+    echo 'CSRF token was: '.$_POST['token'].'<br />';
     
     var_dump(Token::validate($_POST['token'], false));
 }
 
 if(isset($_POST['form_2_submit'])){
     echo 'Form 2 was submitted.<br />';
-    echo 'CSRF token was: '.Token::generate().'<br />';
+    echo 'CSRF token was: '.$_POST['csrf_token'].'<br />';
     
     var_dump(Token::validate($_POST['csrf_token']));
 }
