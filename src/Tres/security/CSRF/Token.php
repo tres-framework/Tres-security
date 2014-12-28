@@ -51,9 +51,6 @@ namespace Tres\security\CSRF {
          */
         public static function input($name = 'csrf_token'){
             $static = new static();
-            if(preg_match('/[^A-Za-z0-9\-_:.]/i', $name)){
-                throw new CSRFException('The supplied token name is invalid, please use [A-Za-z0-9-_:.] characters.');
-            }
             return '<input type="hidden" name="'.$name.'" value="'.self::generate().'" />'.PHP_EOL;
         }
         
