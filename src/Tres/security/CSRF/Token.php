@@ -6,7 +6,7 @@ namespace Tres\security\CSRF {
     
     class CSRFException extends Exception {}
     
-    class CSRF {
+    class Token {
         
         /**
          * The name to use in a session.
@@ -29,23 +29,32 @@ namespace Tres\security\CSRF {
         /**
          * Returns a CSRF token. It gets generated if it doesn't already exists.
          * 
-         * @param  string $name The name to use for the input. If null, returns token only. 
+         * @param  void
          * @return string
          */
-        public static function generateToken($name = 'csrf_token'){
+        public static function generate(){
             $static = new static();
             
             if(!isset($_SESSION[self::SESSION_NAME])){
                 $_SESSION[self::SESSION_NAME] = base64_encode(openssl_random_pseudo_bytes(32));
             }
             
-            $output = $_SESSION[self::SESSION_NAME];
-            
-            if($name){
-                $output = '<input type="hidden" name="'.$name.'" value="'.$output.'" />'.PHP_EOL;
+            return $_SESSION[self::SESSION_NAME];
+        }
+        
+        /**
+         * Returns a html input with a generated CSRF token.
+         * It gets generated if it doesn't already exists.
+         * 
+         * @param  string $name The name to use for the input.
+         * @return string
+         */
+        public static function input($name = 'csrf_token'){
+            $static = new static();
+            if(preg_match('/[^A-Za-z0-9\-_:.]/i', $name)){
+                throw new CSRFException('The supplied token name is invalid, please use [A-Za-z0-9-_:.] characters.');
             }
-            
-            return $output;
+            return '<input type="hidden" name="'.$name.'" value="'.self::generate().'" />'.PHP_EOL;
         }
         
         /**
@@ -56,7 +65,7 @@ namespace Tres\security\CSRF {
          * 
          * @return bool
          */
-        public static function validateToken($token, $unset = true){
+        public static function validate($token, $unset = true){
             $static = new static();
             
             if(isset($_SESSION[self::SESSION_NAME]) &&

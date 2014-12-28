@@ -1,6 +1,6 @@
 <?php
 
-use Tres\security\CSRF\CSRF;
+use Tres\security\CSRF\Token;
 
 require_once(dirname(__DIR__).'/init.php');
 
@@ -8,16 +8,16 @@ session_start();
 
 if(isset($_POST['form_1_submit'])){
     echo 'Form 1 was submitted.<br />';
-    echo 'CSRF token was: '.CSRF::generateToken(false).'<br />';
+    echo 'CSRF token was: '.Token::generate().'<br />';
     
-    var_dump(CSRF::validateToken($_POST['token'], false));
+    var_dump(Token::validate($_POST['token'], false));
 }
 
 if(isset($_POST['form_2_submit'])){
     echo 'Form 2 was submitted.<br />';
-    echo 'CSRF token was: '.CSRF::generateToken(false).'<br />';
+    echo 'CSRF token was: '.Token::generate().'<br />';
     
-    var_dump(CSRF::validateToken($_POST['csrf_token']));
+    var_dump(Token::validate($_POST['csrf_token']));
 }
 
 ?>
@@ -34,13 +34,13 @@ if(isset($_POST['form_2_submit'])){
         
         <h2>Keep token</h2>
         <form method="POST">
-            <input type="hidden" name="token" value="<?php echo CSRF::generateToken(null); ?>" />
+            <input type="hidden" name="token" value="<?php echo Token::generate(); ?>" />
             <input type="submit" name="form_1_submit" value="Submit form 2" />
         </form>
         
         <h2>Reset token</h2>
         <form method="POST">
-            <?php echo CSRF::generateToken(); ?>
+            <?php echo Token::input(); ?>
             <input type="submit" name="form_2_submit" value="Submit form 2" />
         </form>
     </body>
